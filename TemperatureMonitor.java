@@ -30,7 +30,6 @@ public class TemperatureMonitor extends UnicastRemoteObject implements Temperatu
 
 	public static void main(String[] args) {
 		System.setProperty("java.security.policy", "file:allowall.policy");
-		System.setProperty("java.rmi.server.hostname", "localhost");
 		try {
 			Registry registry = LocateRegistry.getRegistry(1888);
 			TemperatureSensor sensor = (TemperatureSensor) registry.lookup("TemperatureSensor");
@@ -38,6 +37,7 @@ public class TemperatureMonitor extends UnicastRemoteObject implements Temperatu
 			System.out.println("Original temp : " + reading);
 			TemperatureMonitor monitor = new TemperatureMonitor();
 			// TODO: Add method call to register the listener in the server object
+			sensor.addTemperatureListener(monitor);
 			monitor.run();
 		} catch (RemoteException | NotBoundException e) {
 			System.out.println(e.getMessage());

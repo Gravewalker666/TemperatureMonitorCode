@@ -50,12 +50,19 @@ public class TemperatureSensorServer extends UnicastRemoteObject implements Temp
 			}
 
 			// Notify registered listeners
-			notifyListeners();
+			try {
+				notifyListeners();
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
-	private void notifyListeners() {
-		// TO DO: Notify every listener in the registered list if there is a change in the temperature
+	private void notifyListeners() throws RemoteException {
+		// TODO: Notify every listener in the registered list if there is a change in the temperature
+		for (TemperatureListener listener: list) {
+			listener.temperatureChanged(temp);
+		}
 	}
 
 	public static void main(String[] args) {
