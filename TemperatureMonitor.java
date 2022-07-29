@@ -32,9 +32,7 @@ public class TemperatureMonitor extends UnicastRemoteObject implements Temperatu
 		System.setProperty("java.security.policy", "file:allowall.policy");
 		System.setProperty("java.rmi.server.hostname", "localhost");
 		try {
-//			String registration = "rmi://localhost/TemperatureSensor";
 			Registry registry = LocateRegistry.getRegistry(1888);
-//			Remote remoteService = Naming.lookup(registration);
 			TemperatureSensor sensor = (TemperatureSensor) registry.lookup("TemperatureSensor");
 			double reading = sensor.getTemperature();
 			System.out.println("Original temp : " + reading);

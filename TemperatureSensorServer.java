@@ -63,8 +63,6 @@ public class TemperatureSensorServer extends UnicastRemoteObject implements Temp
 		System.out.println("Loading temperature service");
 		try {
 			TemperatureSensorServer sensor = new TemperatureSensorServer();
-//			String registry = "localhost";
-//			String registration = "rmi://" + registry + "/TemperatureSensor";
 			Registry registry = LocateRegistry.createRegistry(1888);
 			registry.rebind("TemperatureSensor", sensor);
 			Thread thread = new Thread(sensor);
